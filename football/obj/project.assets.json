@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\prozo\\.nuget\\packages\\": {}
+    "/Users/danielshterev/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\prozo\\Desktop\\football\\football.csproj",
+      "projectUniqueName": "/Users/danielshterev/Desktop/c#/mandatory/tews/football/football.csproj",
       "projectName": "football",
-      "projectPath": "C:\\Users\\prozo\\Desktop\\football\\football.csproj",
-      "packagesPath": "C:\\Users\\prozo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\prozo\\Desktop\\football\\obj\\",
+      "projectPath": "/Users/danielshterev/Desktop/c#/mandatory/tews/football/football.csproj",
+      "packagesPath": "/Users/danielshterev/.nuget/packages/",
+      "outputPath": "/Users/danielshterev/Desktop/c#/mandatory/tews/football/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\prozo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/danielshterev/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.405/RuntimeIdentifierGraph.json"
       }
     }
   }
