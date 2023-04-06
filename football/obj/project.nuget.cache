@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ai54/8kWMBsvb2f0JkvWAnuXUmfaPY855u1cGaZzFL8CgB+m5ks0z8DYC+O0bPbgrctlYdhDa0/iRXVMeXyaBw==",
+  "dgSpecHash": "ASV8sa+xXCfyBpnlO4D3u6thbfqlZrj+L4RZXxAuRnfZ2aYj7kxbK9yIRDI3BxgjVpNiYXs02t5u6LpI9sAinw==",
   "success": true,
-  "projectFilePath": "/Users/danielshterev/Desktop/c#/mandatory/tews/football/football.csproj",
+  "projectFilePath": "/Users/danielshterev/Desktop/c#/tews/football/football.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

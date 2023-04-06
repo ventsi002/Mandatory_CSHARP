@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/danielshterev/Desktop/c#/mandatory/tews/football/football.csproj",
+      "projectUniqueName": "/Users/danielshterev/Desktop/c#/tews/football/football.csproj",
       "projectName": "football",
-      "projectPath": "/Users/danielshterev/Desktop/c#/mandatory/tews/football/football.csproj",
+      "projectPath": "/Users/danielshterev/Desktop/c#/tews/football/football.csproj",
       "packagesPath": "/Users/danielshterev/.nuget/packages/",
-      "outputPath": "/Users/danielshterev/Desktop/c#/mandatory/tews/football/obj/",
+      "outputPath": "/Users/danielshterev/Desktop/c#/tews/football/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/danielshterev/.nuget/NuGet/NuGet.Config"

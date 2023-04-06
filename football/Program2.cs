@@ -43,6 +43,7 @@ class Program2
         }).Where(team => team != null).ToList();
 
         // Read the rounds files and calculate team stats
+        var roundWithNoScore = new List<string>();
         int numberRounds = Program2.RoundInput();
         var rounds = Enumerable.Range(1, numberRounds);
         foreach (var round in rounds)
@@ -53,88 +54,97 @@ class Program2
                 foreach (var line in roundLines)
                 {
                     var fields = line.Split(';');
-                    var homeTeam = teams.FirstOrDefault(team => team?.Name == fields[0] || team?.Abbreviation == fields[0]);
-                    var awayTeam = teams.FirstOrDefault(team => team?.Name == fields[1] || team?.Abbreviation == fields[1]);
-                    if (homeTeam != null && awayTeam != null)
+                    if(fields.Length == 4)
                     {
-                        var homeGoals = int.Parse(fields[2]);
-                        var awayGoals = int.Parse(fields[3]);
-                        homeTeam.GamesPlayed++;
-                        awayTeam.GamesPlayed++;
-                        homeTeam.GoalsFor += homeGoals;
-                        awayTeam.GoalsFor += awayGoals;
-                        homeTeam.GoalsAgainst += awayGoals;
-                        awayTeam.GoalsAgainst += homeGoals;
-                        homeTeam.GoalDifference += homeGoals - awayGoals;
-                        awayTeam.GoalDifference += awayGoals - homeGoals;
-                        if (homeGoals > awayGoals)
+                        var homeTeam = teams.FirstOrDefault(team => team?.Name == fields[0] || team?.Abbreviation == fields[0]);
+                        var awayTeam = teams.FirstOrDefault(team => team?.Name == fields[1] || team?.Abbreviation == fields[1]);
+                        if (homeTeam != null && awayTeam != null)
                         {
-                            homeTeam.GamesWon++;
-                            awayTeam.GamesLost++;
-                            homeTeam.Points += 3;
-                            homeTeam.LastFiveResults.Enqueue("W");
-                            if (homeTeam.LastFiveResults.Count > 5)
+                            var homeGoals = int.Parse(fields[2]);
+                            var awayGoals = int.Parse(fields[3]);
+                            homeTeam.GamesPlayed++;
+                            awayTeam.GamesPlayed++;
+                            homeTeam.GoalsFor += homeGoals;
+                            awayTeam.GoalsFor += awayGoals;
+                            homeTeam.GoalsAgainst += awayGoals;
+                            awayTeam.GoalsAgainst += homeGoals;
+                            homeTeam.GoalDifference += homeGoals - awayGoals;
+                            awayTeam.GoalDifference += awayGoals - homeGoals;
+                            if (homeGoals > awayGoals)
                             {
-                                homeTeam.LastFiveResults.Dequeue();
+                                homeTeam.GamesWon++;
+                                awayTeam.GamesLost++;
+                                homeTeam.Points += 3;
+                                homeTeam.LastFiveResults.Enqueue("W");
+                                if (homeTeam.LastFiveResults.Count > 5)
+                                {
+                                    homeTeam.LastFiveResults.Dequeue();
+                                }
+                                homeTeam.CurrentStreak = string.Join("", homeTeam.LastFiveResults.Reverse());
+                                awayTeam.LastFiveResults.Enqueue("L");
+                                if (awayTeam.LastFiveResults.Count > 5)
+                                {
+                                    awayTeam.LastFiveResults.Dequeue();
+                                }
+                                awayTeam.CurrentStreak = string.Join("", awayTeam.LastFiveResults.Reverse());
                             }
-                            homeTeam.CurrentStreak = string.Join("", homeTeam.LastFiveResults.Reverse());
-                            awayTeam.LastFiveResults.Enqueue("L");
-                            if (awayTeam.LastFiveResults.Count > 5)
+                            else if (homeGoals < awayGoals)
                             {
-                                awayTeam.LastFiveResults.Dequeue();
+                                awayTeam.GamesWon++;
+                                homeTeam.GamesLost++;
+                                awayTeam.Points += 3;
+                                awayTeam.LastFiveResults.Enqueue("W");
+                                if (awayTeam.LastFiveResults.Count > 5)
+                                {
+                                    awayTeam.LastFiveResults.Dequeue();
+                                }
+                                awayTeam.CurrentStreak = string.Join("", awayTeam.LastFiveResults.Reverse());
+                                homeTeam.LastFiveResults.Enqueue("L");
+                                if (homeTeam.LastFiveResults.Count > 5)
+                                {
+                                    homeTeam.LastFiveResults.Dequeue();
+                                }
+                                homeTeam.CurrentStreak = string.Join("", homeTeam.LastFiveResults.Reverse());
                             }
-                            awayTeam.CurrentStreak = string.Join("", awayTeam.LastFiveResults.Reverse());
-                        }
-                        else if (homeGoals < awayGoals)
-                        {
-                            awayTeam.GamesWon++;
-                            homeTeam.GamesLost++;
-                            awayTeam.Points += 3;
-                            awayTeam.LastFiveResults.Enqueue("W");
-                            if (awayTeam.LastFiveResults.Count > 5)
+                            else
                             {
-                                awayTeam.LastFiveResults.Dequeue();
+                                homeTeam.GamesDrawn++;
+                                awayTeam.GamesDrawn++;
+                                homeTeam.Points += 1;
+                                awayTeam.Points += 1;
+                                homeTeam.LastFiveResults.Enqueue("D");
+                                if (homeTeam.LastFiveResults.Count > 5)
+                                {
+                                    homeTeam.LastFiveResults.Dequeue();
+                                }
+                                homeTeam.CurrentStreak = string.Join("", homeTeam.LastFiveResults.Reverse());
+                                awayTeam.LastFiveResults.Enqueue("D");
+                                if (awayTeam.LastFiveResults.Count > 5)
+                                {
+                                    awayTeam.LastFiveResults.Dequeue();
+                                }
+                                awayTeam.CurrentStreak = string.Join("", awayTeam.LastFiveResults.Reverse());
                             }
-                            awayTeam.CurrentStreak = string.Join("", awayTeam.LastFiveResults.Reverse());
-                            homeTeam.LastFiveResults.Enqueue("L");
-                            if (homeTeam.LastFiveResults.Count > 5)
-                            {
-                                homeTeam.LastFiveResults.Dequeue();
-                            }
-                            homeTeam.CurrentStreak = string.Join("", homeTeam.LastFiveResults.Reverse());
+
                         }
                         else
                         {
-                            homeTeam.GamesDrawn++;
-                            awayTeam.GamesDrawn++;
-                            homeTeam.Points += 1;
-                            awayTeam.Points += 1;
-                            homeTeam.LastFiveResults.Enqueue("D");
-                            if (homeTeam.LastFiveResults.Count > 5)
-                            {
-                                homeTeam.LastFiveResults.Dequeue();
-                            }
-                            homeTeam.CurrentStreak = string.Join("", homeTeam.LastFiveResults.Reverse());
-                            awayTeam.LastFiveResults.Enqueue("D");
-                            if (awayTeam.LastFiveResults.Count > 5)
-                            {
-                                awayTeam.LastFiveResults.Dequeue();
-                            }
-                            awayTeam.CurrentStreak = string.Join("", awayTeam.LastFiveResults.Reverse());
+                            Console.WriteLine($"One or both of the teams in line {line} are not registered.");
                         }
-
                     }
                     else
                     {
-                        Console.WriteLine($"One or both of the teams in line {line} are not registered.");
+                        roundWithNoScore.Add(round + ";" + line);
                     }
-                }   
+                    
+                }
             }
             catch(FileNotFoundException)
             {
                 Console.WriteLine("No rounds after the 32nd");
             }
         }
+        File.WriteAllLines($"round-x-file.csv", roundWithNoScore);
 
         // Sort the teams by points, goal difference, and goals for
         var sortedTeams = teams.OrderByDescending(team => team?.Points)
