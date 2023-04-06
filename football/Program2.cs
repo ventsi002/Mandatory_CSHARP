@@ -215,7 +215,7 @@ class Program2
             standingsLines.Add("Team,GP,W,L,D,GF,GA,GD,Pts,Streak");
             foreach (var team in sortedTeams)
             {
-                standingsLines.Add($"{team.Name},{team.GamesPlayed},{team.GamesWon},{team.GamesLost},{team.GamesDrawn},{team.GoalsFor},{team.GoalsAgainst},{team.GoalDifference},{team.Points},{team.CurrentStreak}");
+                standingsLines.Add($"{team?.Name},{team?.GamesPlayed},{team?.GamesWon},{team?.GamesLost},{team?.GamesDrawn},{team?.GoalsFor},{team?.GoalsAgainst},{team?.GoalDifference},{team?.Points},{team?.CurrentStreak}");
             }
             File.WriteAllLines("standings.csv", standingsLines);
 
